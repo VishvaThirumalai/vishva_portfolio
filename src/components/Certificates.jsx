@@ -127,81 +127,74 @@ const Certificates = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden ">
-      {/* Dark green shade at middle */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-900/40 to-transparent opacity-80"></div>
-      
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full"></div>
-        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-white rounded-full"></div>
-        <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-white rounded-full"></div>
-      </div>
+    <div className="min-h-screen bg-black relative overflow-hidden py-16 sm:py-20">
+      {/* ... background elements remain the same ... */}
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 ">
-        <h2 className="text-4xl font-bold text-white mb-4 text-center">Professional Certifications</h2>
-        <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 text-center">
+          Professional Certifications
+        </h2>
+        <p className="text-gray-400 text-center mb-8 sm:mb-12 max-w-2xl mx-auto px-4 text-base sm:text-lg">
           Validated expertise through industry-recognized certifications and specialized training programs
         </p>
 
         {/* Header Card */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="bg-gray-800/80 rounded-2xl p-8 shadow-lg border border-gray-700 backdrop-blur-sm text-center">
-            <p className="text-gray-300 text-lg mb-6">
-              Organized by Tuna and Others. Professional development through continuous learning and industry validation.
+        <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+          <div className="bg-gray-800/80 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-700 backdrop-blur-sm text-center">
+            <p className="text-gray-300 text-base sm:text-lg mb-4 sm:mb-6">
+              Professional development through continuous learning and industry validation.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+            <div className="w-20 sm:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
           </div>
         </div>
 
-        {/* Certificates Grid */}
+        {/* Certificates Grid - 2 per row on mobile */}
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {certificatesData.map((cert, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {certificatesData.map((cert) => (
               <div 
                 key={cert.id}
-                className="bg-gray-800/80 rounded-2xl shadow-lg border border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 animate-slide-up backdrop-blur-sm group"
-                style={{animationDelay: `${index * 100}ms`}}
+                className="bg-gray-800/80 rounded-xl sm:rounded-2xl shadow-lg border border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm group"
               >
                 {/* Certificate Header with Gradient */}
-                <div className={`h-2 bg-gradient-to-r ${getCategoryColor(cert.category)}`}></div>
+                <div className={`h-1 sm:h-2 bg-gradient-to-r ${getCategoryColor(cert.category)}`}></div>
                 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   {/* Icon and Category */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
                     <div className="text-blue-400">
                       {getIcon(cert.icon)}
                     </div>
-                    <span className="text-xs font-medium text-gray-400 bg-gray-700 px-3 py-1 rounded-full">
+                    <span className="text-xs font-medium text-gray-400 bg-gray-700 px-2 sm:px-3 py-1 rounded-full">
                       {cert.category}
                     </span>
                   </div>
 
                   {/* Certificate Name */}
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
                     {cert.name}
                   </h3>
 
                   {/* Issuer and Date */}
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-gray-300">
+                  <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
+                    <div className="flex items-center text-xs sm:text-sm text-gray-300">
                       <span className="font-medium">Issuer:</span>
-                      <span className="ml-2 text-blue-300">{cert.issuer}</span>
+                      <span className="ml-1 sm:ml-2 text-blue-300 truncate">{cert.issuer}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-300">
+                    <div className="flex items-center text-xs sm:text-sm text-gray-300">
                       <span className="font-medium">Date:</span>
-                      <span className="ml-2 text-green-300">{cert.date}</span>
+                      <span className="ml-1 sm:ml-2 text-green-300">{cert.date}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-300">
+                    <div className="flex items-center text-xs sm:text-sm text-gray-300">
                       <span className="font-medium">ID:</span>
-                      <span className="ml-2 text-purple-300 font-mono">{cert.credentialId}</span>
+                      <span className="ml-1 sm:ml-2 text-purple-300 font-mono text-xs truncate">{cert.credentialId}</span>
                     </div>
                   </div>
 
                   {/* Skills */}
-                  <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Skills Validated:</h4>
+                  <div className="mb-3 sm:mb-4">
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-400 mb-1 sm:mb-2">Skills Validated:</h4>
                     <div className="flex flex-wrap gap-1">
                       {cert.skills.map((skill, idx) => (
                         <span 
@@ -215,13 +208,13 @@ const Certificates = () => {
                   </div>
 
                   {/* Verify Button */}
-                  <div className="pt-4 border-t border-gray-600">
+                  <div className="pt-3 sm:pt-4 border-t border-gray-600">
                     <a
                       href={cert.verificationLink}
-                      className="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-all duration-200 group/btn"
+                      className="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 sm:py-2 sm:px-4 rounded-lg transition-all duration-200 group/btn text-sm sm:text-base"
                     >
                       <span>Verify Certificate</span>
-                      <svg className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>

@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaTimes } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaTimes, FaBars } from 'react-icons/fa';
 
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
   const [showResume, setShowResume] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
   const animationRef = useRef(null);
@@ -16,7 +17,6 @@ const Hero = () => {
     "Building Intelligent Solutions"
   ];
 
-  // Updated social links with working email
   const socialLinks = [
     {
       icon: FaGithub,
@@ -36,6 +36,15 @@ const Hero = () => {
       color: "hover:text-red-400",
       title: "Email",
     },
+  ];
+
+  // Navigation menu items
+  const navItems = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   // Clean 3D particle system with cursor interaction
@@ -127,7 +136,7 @@ const Hero = () => {
         this.points = [];
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = Math.min(canvas.width, canvas.height) * 0.45; // Increased radius
+        const radius = Math.min(canvas.width, canvas.height) * 0.45;
         
         for (let i = 0; i <= 100; i++) {
           const angle = (i / 100) * Math.PI * 2;
@@ -200,10 +209,16 @@ const Hero = () => {
     };
   }, []);
 
-  // Image cursor follow effect
+  // Image cursor follow effect - disable on mobile
   useEffect(() => {
     const image = imageRef.current;
     if (!image) return;
+
+    // Disable on mobile
+    if (window.innerWidth < 1024) {
+      image.style.transform = 'none';
+      return;
+    }
 
     let animationFrameId;
     let targetX = 0;
@@ -221,7 +236,6 @@ const Hero = () => {
     };
 
     const animateImage = () => {
-      // Smooth interpolation
       currentX += (targetX - currentX) * 0.1;
       currentY += (targetY - currentY) * 0.1;
 
@@ -266,6 +280,10 @@ const Hero = () => {
     setShowResume(!showResume);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const downloadResume = () => {
     const pdfUrl = '/resume.pdf';
     const link = document.createElement('a');
@@ -280,7 +298,7 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (showResume) {
+    if (showResume || isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -288,204 +306,288 @@ const Hero = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showResume]);
+  }, [showResume, isMobileMenuOpen]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black-900 px-4 py-20 relative overflow-hidden space-y-12">
-      {/* Clean Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-black-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-black-500/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Clean Text */}
-          <div className="text-center lg:text-left space-y-5">
-            <div className="space-y-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-                Hi, I'm{' '}
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Vishva
-                </span>
-              </h1>
-              
-              <div className="h-20 flex items-center justify-center lg:justify-start">
-                <p className="text-xl md:text-2xl text-gray-300 font-medium">
-                  {displayedText}
-                  <span className="ml-1 animate-pulse">|</span>
-                </p>
-              </div>
+    <>
+      <div className="min-h-screen flex items-center justify-center bg-black-900 px-4 sm:px-6 py-16 sm:py-20 relative overflow-hidden" id="home">
+        {/* Mobile Navigation Header */}
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-700/50">
+          <div className="flex justify-between items-center px-4 py-3">
+            <div className="text-white font-bold text-xl">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Vishva
+              </span>
             </div>
-
-            <p className="text-lg text-gray-400 leading-relaxed max-w-2xl">
-              Passionate about creating intelligent solutions that bridge the gap between 
-              artificial intelligence and real-world applications. Currently pursuing my 
-              B.Tech in Information Technology while building cutting-edge projects.
-            </p>
-
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-              {['AI/ML', 'React', 'Node.js', 'Python', 'MongoDB', 'Java', 'C++'].map((tech, index) => (
-                <span 
-                  key={index}
-                  className="bg-gray-800/80 text-white px-4 py-2 rounded-lg text-sm font-medium border border-gray-700 backdrop-blur-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
-                <span>View My Work</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-              
-              <button 
-                onClick={handleResumeAction}
-                className="border border-gray-600 text-white hover:bg-white hover:text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
-              >
-                <FaFileDownload className="w-4 h-4" />
-                <span>View CV</span>
-              </button>
-            </div>
-
-            {/* Updated Social Links with Working Email */}
-            <div className="flex justify-center lg:justify-start space-x-4 pt-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                  rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className={`text-gray-600 bg-gray-900/50 p-3 rounded-full ${social.color} transition-all duration-300 transform hover:scale-110 backdrop-blur-sm hover:bg-gray-800/70`}
-                  title={social.title}
-                >
-                  <social.icon size={20} />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column - Larger Container with Full Image */}
-          <div className="flex justify-center lg:justify-end relative">
-            <div className="relative w-96 h-96 lg:w-[650px] lg:h-[550px]">
-              {/* Canvas for subtle particles */}
-              <canvas
-                ref={canvasRef}
-                className="absolute inset-0 w-full h-full z-12 rounded-full"
-              />
-              
-              {/* Full Size Interactive Avatar Image */}
-              <div className="relative z-20 w-full flex items-center justify-center">
-                <img 
-                  ref={imageRef}
-                  src="avatar.png" 
-                  alt="Vishva T - AI Engineer"
-                  className="w-full h-full rounded-full object-cover transition-transform duration-300 ease-out"
-                  style={{ 
-                    transform: 'translate(0px, 0px) rotateX(0deg) rotateY(0deg) scale(1)',
-                    objectFit: 'cover'
-                  }}
-                />
-              </div>
-
-              {/* Subtle glow effect */}
-              <div className="absolute inset-0 rounded-full animate-pulse-slow"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gray-600 rounded-full mt-2"></div>
-        </div>
-      </div>
-
-      {/* Resume Modal */}
-      {showResume && (
-        <>
-          <div 
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md transition-all duration-300"
-            onClick={toggleResume}
-          />
-          
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-            <div 
-              className="relative w-full max-w-xl h-[90vh] bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-600/50 overflow-hidden pointer-events-auto transform transition-all duration-300 scale-95"
-              onClick={(e) => e.stopPropagation()}
+            <button
+              onClick={toggleMobileMenu}
+              className="text-white p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+              aria-label="Toggle menu"
             >
-              
-              <div className="flex items-center justify-between bg-gray-800/80 backdrop-blur-md border-b border-gray-600/50 px-6 py-4">
-                <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-red-500/90 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14,2 14,8 20,8"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-md">Vishva T - Resume</h3>
-                    <p className="text-gray-300 text-xs">Interactive Resume Viewer</p>
-                  </div>
+              <FaBars size={20} />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <>
+            <div 
+              className="lg:hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-md transition-all duration-300"
+              onClick={toggleMobileMenu}
+            />
+            <div className="lg:hidden fixed top-0 right-0 z-50 w-64 h-full bg-gray-900/95 backdrop-blur-xl border-l border-gray-700/50 transform transition-transform duration-300">
+              <div className="flex flex-col p-6 space-y-6 h-full">
+                <div className="flex justify-between items-center border-b border-gray-700/50 pb-4">
+                  <div className="text-white font-bold text-xl">Menu</div>
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="text-white p-2 rounded-lg hover:bg-red-600/20 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <FaTimes size={20} />
+                  </button>
                 </div>
                 
-                <div className="flex items-center space-x-2">
-                  <button 
-                    onClick={downloadResume}
-                    className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-gray-700/80 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
-                    title="Download Resume"
-                  >
-                    <FaFileDownload className="w-4 h-4" />
-                  </button>
-                  
-                  <button 
-                    onClick={toggleResume}
-                    className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-red-600/80 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
-                    title="Close Resume"
-                  >
-                    <FaTimes className="w-4 h-4" />
-                  </button>
+                <nav className="flex flex-col space-y-4 flex-1">
+                  {navItems.map((item, index) => (
+                    <a
+                      key={index}
+                      href={item.href}
+                      onClick={toggleMobileMenu}
+                      className="text-white hover:text-blue-400 py-3 px-4 rounded-lg hover:bg-gray-800/50 transition-all duration-300 text-lg font-medium border-l-4 border-transparent hover:border-blue-400"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </nav>
+
+                <div className="border-t border-gray-700/50 pt-4">
+                  <div className="flex space-x-4 justify-center">
+                    {socialLinks.map((social, index) => (
+                      <a
+                        key={index}
+                        href={social.href}
+                        target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                        rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
+                        className={`text-gray-400 bg-gray-800/50 p-3 rounded-full ${social.color} transition-all duration-300 transform hover:scale-110 backdrop-blur-sm`}
+                        title={social.title}
+                      >
+                        <social.icon size={20} />
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
+            </div>
+          </>
+        )}
 
-              <div className="h-full bg-gray-800/50 backdrop-blur-sm p-3">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-inner overflow-hidden w-full h-full border border-gray-300/50">
-                  <iframe
-                    src="/resume.pdf#view=Fit&toolbar=0&navpanes=0&scrollbar=0"
-                    className="w-full h-full border-0"
-                    title="Vishva T Resume"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
+        {/* Clean Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-48 h-48 sm:w-72 sm:h-72 bg-black-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-black-500/5 rounded-full blur-3xl"></div>
+        </div>
 
-              <div className="bg-gray-800/80 backdrop-blur-md border-t border-gray-600/50 px-4 py-2">
-                <div className="flex items-center justify-center">
-                  <p className="text-gray-300 text-xs text-center">
-                    Use the download button to save a copy • Click outside to close
+        <div className="relative z-10 max-w-7xl mx-auto w-full mt-16 lg:mt-0">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-center">
+            {/* Text Content - Optimized for mobile */}
+            <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 lg:space-y-8 order-2 lg:order-1">
+              <div className="space-y-4 lg:space-y-6">
+                <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                  Hi, I'm{' '}
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    Vishva
+                  </span>
+                </h1>
+                
+                <div className="h-16 sm:h-20 flex items-center justify-center lg:justify-start">
+                  <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 font-medium min-h-[1.5em] px-2 sm:px-0">
+                    {displayedText}
+                    <span className="ml-1 animate-pulse">|</span>
                   </p>
                 </div>
               </div>
+
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0">
+                Passionate about creating intelligent solutions that bridge the gap between 
+                artificial intelligence and real-world applications. Currently pursuing my 
+                B.Tech in Information Technology while building cutting-edge projects.
+              </p>
+
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start px-2 sm:px-0">
+                {['AI/ML', 'React', 'Node.js', 'Python', 'MongoDB', 'Java', 'C++'].map((tech, index) => (
+                  <span 
+                    key={index}
+                    className="bg-gray-800/80 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border border-gray-700 backdrop-blur-sm"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-2 sm:px-0">
+                <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 text-sm sm:text-base w-full sm:w-auto">
+                  <span>View My Work</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+                
+                <button 
+                  onClick={handleResumeAction}
+                  className="border border-gray-600 text-white hover:bg-white hover:text-black px-6 sm:px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 text-sm sm:text-base w-full sm:w-auto"
+                >
+                  <FaFileDownload className="w-4 h-4" />
+                  <span>View CV</span>
+                </button>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex justify-center lg:justify-start space-x-3 sm:space-x-4 pt-2 px-2 sm:px-0">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                    rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
+                    className={`text-gray-600 bg-gray-900/50 p-2 sm:p-3 rounded-full ${social.color} transition-all duration-300 transform hover:scale-110 backdrop-blur-sm hover:bg-gray-800/70`}
+                    title={social.title}
+                  >
+                    <social.icon size={18} className="sm:w-5 sm:h-5" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Image Content - First on mobile, right on desktop */}
+            <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative order-1 lg:order-2 mb-6 lg:mb-0">
+              <div className="relative w-64 h-64 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] xl:w-[550px] xl:h-[550px]">
+                {/* Canvas for subtle particles */}
+                <canvas
+                  ref={canvasRef}
+                  className="absolute inset-0 w-full h-full z-12 rounded-full"
+                />
+                
+                {/* Responsive Interactive Avatar Image */}
+                <div className="relative z-20 w-full  flex items-center justify-center">
+                  <img 
+                    ref={imageRef}
+                    src="avatar.png" 
+                    alt="Vishva T - AI Engineer"
+                    className="w-full h-full rounded-full object-cover transition-transform duration-300 ease-out"
+                    style={{ 
+                      transform: 'translate(0px, 0px) rotateX(0deg) rotateY(0deg) scale(1)',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 rounded-full bg-blue-500/10 pulse-slow"></div>
+              </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
 
-      <style jsx>{`
+        {/* Scroll Indicator - Hidden on mobile */}
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
+          <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-gray-600 rounded-full mt-2"></div>
+          </div>
+        </div>
+
+        {/* Resume Modal */}
+        {showResume && (
+          <>
+            <div 
+              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md transition-all duration-300"
+              onClick={toggleResume}
+            />
+            
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+              <div 
+                className="relative w-full max-w-xl h-[90vh] bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-600/50 overflow-hidden pointer-events-auto transform transition-all duration-300 scale-95"
+                onClick={(e) => e.stopPropagation()}
+              >
+                
+                <div className="flex items-center justify-between bg-gray-800/80 backdrop-blur-md border-b border-gray-600/50 px-6 py-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-8 h-8 bg-red-500/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold text-md">Vishva T - Resume</h3>
+                      <p className="text-gray-300 text-xs">Interactive Resume Viewer</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <button 
+                      onClick={downloadResume}
+                      className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-gray-700/80 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
+                      title="Download Resume"
+                    >
+                      <FaFileDownload className="w-4 h-4" />
+                    </button>
+                    
+                    <button 
+                      onClick={toggleResume}
+                      className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-red-600/80 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
+                      title="Close Resume"
+                    >
+                      <FaTimes className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="h-full bg-gray-800/50 backdrop-blur-sm p-3">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-inner overflow-hidden w-full h-full border border-gray-300/50">
+                    <iframe
+                      src="/resume.pdf#view=Fit&toolbar=0&navpanes=0&scrollbar=0"
+                      className="w-full h-full border-0"
+                      title="Vishva T Resume"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-gray-800/80 backdrop-blur-md border-t border-gray-600/50 px-4 py-2">
+                  <div className="flex items-center justify-center">
+                    <p className="text-gray-300 text-xs text-center">
+                      Use the download button to save a copy • Click outside to close
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
         @keyframes pulse-slow {
-          0%, 100% { opacity: 0.2; }
-          50% { opacity: 0.5; }
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 0.3; }
         }
-        .animate-pulse-slow {
+        .pulse-slow {
           animation: pulse-slow 3s ease-in-out infinite;
         }
+        
+        /* Extra small devices */
+        @media (max-width: 475px) {
+          .xs\\:text-4xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+          }
+        }
       `}</style>
-    </div>
+    </>
   );
 };
 
