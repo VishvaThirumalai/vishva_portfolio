@@ -40,7 +40,7 @@ const Skills = () => {
         </div>
 
         {/* Technologies Grid */}
-        <div className="tech-icons-wrapper flex flex-wrap justify-center gap-11 max-w-4xl mx-auto">
+        <div className="tech-icons-wrapper flex flex-wrap justify-center gap-10 max-w-6xl mx-auto">
           {technologies.map((technology) => (
             <div 
               className="group relative w-24 h-24 flex flex-col items-center justify-center transition-all duration-300 hover:scale-110" 
