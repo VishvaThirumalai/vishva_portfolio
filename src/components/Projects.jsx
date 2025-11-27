@@ -1,29 +1,14 @@
 const Projects = () => {
   const projects = [
+    
+    
     {
       id: 1,
-      title: "FreshMart - Grocery Shopping",
-      subtitle: "Complete React grocery shopping platform with cart and ordering system",
-      category: "E-Commerce",
-      image: "/project1.jpg",
-      tags: ["React", "Node.js", "E-commerce", "Shopping"],
-      progress: 100,
-      status: "Completed",
-      links: [
-        { name: "Live Demo", url: "https://f-mart-frontend.onrender.com/" },
-        { name: "GitHub", url: "https://github.com/VishvaThirumalai/fmart-frontend-v1" }
-      ],
-      team: [
-        { role: "Full Stack Developer", name: "Vishva Thirumalai" }
-      ]
-    },
-    {
-      id: 2,
       title: "MITH Hostels - Outpass System",
       subtitle: "Role-based hostel outpass management system with SpringBoot backend",
       category: "Management System",
       image: "/project2.jpg",
-      tags: ["SpringBoot", "React", "Role-based", "Security"],
+      tags: ["SpringBoot", "React", "Role-based", "Java"],
       progress: 100,
       status: "Completed",
       links: [
@@ -32,9 +17,28 @@ const Projects = () => {
         { name: "GitHub Backend", url: "https://github.com/VishvaThirumalai/outpass-backendv1.git" }
       ],
       team: [
-        { role: "Full Stack Developer", name: "Vishva Thirumalai" }
+        { role: "Full Stack Developer", name: "Vishva " }
       ]
     },
+    {
+  id: 2,
+  title: "Hotel Booking System",
+  subtitle: "Full-stack hotel reservation platform with booking management and user authentication",
+  category: "Booking System", // Changed from "E-Commerce"
+  image: "/project7.jpg",
+  tags: ["React", "Java", "SpringBoot", "Booking System"],
+  progress: 100,
+  status: "Completed",
+  links: [
+    { name: "View Project", url: "https://hotelbooking-frontendv1.onrender.com" },
+    { name: "GitHub Frontend", url: "https://github.com/VishvaThirumalai/hotelbooking_frontendv1.git" },
+    { name: "GitHub Backend", url: "https://github.com/VishvaThirumalai/hotelbooking_backendv1.git" }
+  ],
+  team: [
+    { role: "Backend Developer", name: "Ashok Kumar & Vishva" },
+    { role: "Frontend Developer", name: "Kamesh " }
+  ]
+},
     {
       id: 3,
       title: "Text Analyzer - AI Summarization",
@@ -50,27 +54,27 @@ const Projects = () => {
         { name: "GitHub Backend", url: "https://github.com/VishvaThirumalai/VishvaThirumalai-text_analyzer_backend-v0.git" }
       ],
       team: [
-        { role: "AI Developer", name: "Vishva Thirumalai" }
+        { role: "AI Developer", name: "Vishva " }
       ]
     },
     {
       id: 4,
-      title: "Rock Paper Scissors AI",
-      subtitle: "Interactive RPS game with bot AI opponent",
-      category: "Game Development",
-      image: "/project4.jpg",
-      tags: ["HTML", "CSS", "JavaScript", "Game AI"],
+      title: "FreshMart - Grocery Shopping",
+      subtitle: "Complete React grocery shopping platform with cart and ordering system",
+      category: "E-Commerce",
+      image: "/project1.jpg",
+      tags: ["React", "Node.js", "E-commerce", "Shopping"],
       progress: 100,
       status: "Completed",
       links: [
-        { name: "Play Game", url: "https://rps-online-virid.vercel.app/" },
-        { name: "GitHub", url: "https://github.com/VishvaThirumalai/RPS_online.git" }
+        { name: "Live Demo", url: "https://f-mart-frontend.onrender.com/" },
+        { name: "GitHub", url: "https://github.com/VishvaThirumalai/fmart-frontend-v1" }
       ],
       team: [
-        { role: "Game Developer", name: "Vishva Thirumalai" }
+        { role: "Full Stack Developer", name: "Vishva " }
       ]
     },
-    {
+     {
       id: 5,
       title: "Intelligent Adult Income Prediction",
       subtitle: "ML system predicting income levels using census data with 87.5% accuracy",
@@ -84,11 +88,30 @@ const Projects = () => {
         { name: "GitHub", url: "#" }
       ],
       team: [
-        { role: "ML Engineer|Data Scientist", name: "Vishva Thirumalai" },
+        { role: "ML Engineer|Data Scientist", name: "Vishva " },
       ]
     },
     {
       id: 6,
+      title: "Rock Paper Scissors AI",
+      subtitle: "Interactive RPS game with bot AI opponent",
+      category: "Game Development",
+      image: "/project4.jpg",
+      tags: ["HTML", "CSS", "JavaScript", "Game AI"],
+      progress: 100,
+      status: "Completed",
+      links: [
+        { name: "Play Game", url: "https://rps-online-virid.vercel.app/" },
+        { name: "GitHub", url: "https://github.com/VishvaThirumalai/RPS_online.git" }
+      ],
+      team: [
+        { role: "Game Developer", name: "Vishva " }
+      ]
+    },
+   
+    
+    {
+      id: 7,
       title: "Bank Management System",
       subtitle: "Comprehensive banking simulator with loan and employee management",
       category: "System Development",
@@ -101,7 +124,7 @@ const Projects = () => {
         { name: "Documentation", url: "#" }
       ],
       team: [
-        { role: "System Developer", name: "Vishva Thirumalai" }
+        { role: "System Developer", name: "Vishva " }
       ]
     }
   ];
@@ -296,29 +319,7 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Enhanced Stats Section */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 max-w-6xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-900/60 to-black/60 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-gray-700/30 backdrop-blur-xl hover:border-emerald-500/30 transition-all duration-500 group">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 text-center">
-              <div className="transform group-hover:scale-105 transition-transform duration-500">
-                <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-emerald-400 mb-1 sm:mb-2">6</div>
-                <div className="text-gray-400 text-xs sm:text-sm">Projects Completed</div>
-              </div>
-              <div className="transform group-hover:scale-105 transition-transform duration-500" style={{transitionDelay: '0.1s'}}>
-                <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-cyan-400 mb-1 sm:mb-2">4</div>
-                <div className="text-gray-400 text-xs sm:text-sm">Tech Stacks</div>
-              </div>
-              <div className="transform group-hover:scale-105 transition-transform duration-500" style={{transitionDelay: '0.2s'}}>
-                <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-blue-400 mb-1 sm:mb-2">3</div>
-                <div className="text-gray-400 text-xs sm:text-sm">AI/ML Projects</div>
-              </div>
-              <div className="transform group-hover:scale-105 transition-transform duration-500" style={{transitionDelay: '0.3s'}}>
-                <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-purple-400 mb-1 sm:mb-2">5</div>
-                <div className="text-gray-400 text-xs sm:text-sm">Live Demos</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       <style jsx>{`
